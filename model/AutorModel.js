@@ -1,27 +1,35 @@
 import { DataTypes } from "sequelize";
 import banco from "../banco.js";
 
-//mapeamento da model Editora
+//mapeamento da model Autor
 export default banco.define(
-    'emprestimo',
+    'autor',
     {
         // Model attributes are defined here
-        ideditora: {
+        idautor: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        nomeeditora: {
+        nomeautor: {
             type: DataTypes.STRING(60),
             allowNull: false
         },
-        cnpj: {
-            type: DataTypes.STRING(20),
-            allowNull: false
+        nascimento: {
+            type: DataTypes.DATEONLY,
+            allowNull: true
         },
-        endereco: {
-            type: DataTypes.TEXT,
+        biografia: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        nacionalidade: {
+            type: DataTypes.STRING(60),
+            allowNull: true
+        },
+        foto: {
+            type: DataTypes.STRING,
             allowNull: true
         }
     }
