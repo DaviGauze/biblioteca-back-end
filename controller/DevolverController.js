@@ -3,12 +3,7 @@ import Emprestimo from "../model/EmprestimoModel.js";
 import Livro from "../model/LivroModel.js";
 
 async function listar(req, res) {
-    const respostaBanco = await Devolucao.findAll({
-        include: [{
-            model: Emprestimo,
-            include: [Livro] // Inclui informações do livro relacionado
-        }]
-    });
+    const respostaBanco = await Devolucao.findAll();
     res.json(respostaBanco);
 }
 
@@ -17,7 +12,7 @@ async function selecionar(req, res) {
     const respostaBanco = await Devolucao.findByPk(id, {
         include: [{
             model: Emprestimo,
-            include: [Livro] // Inclui informações do livro relacionado
+            include: [Livro] 
         }]
     });
     res.json(respostaBanco);
@@ -28,17 +23,14 @@ async function devolver(req, res) {
         const idemprestimo = req.body.idemprestimo;
         const observacao = req.body.observacao || null;
 
-        // Verifica se o parâmetro idemprestimo foi enviado
         if (!idemprestimo) {
             return res.status(422).json({ erro: 'O parâmetro idemprestimo é obrigatório' });
         }
 
-        // Busca o empréstimo no banco
         const emprestimo = await Emprestimo.findByPk(idemprestimo, {
-            include: [Livro] // Inclui informações do livro relacionado
+            include: [Livro]
         });
 
-        // Validações
         if (!emprestimo) {
             return res.status(404).json({ erro: 'Empréstimo não encontrado' });
         }
@@ -47,15 +39,17 @@ async function devolver(req, res) {
             return res.status(422).json({ erro: 'Este livro já foi devolvido' });
         }
 
-        // Cria o registro de devolução
         const devolucao = await Devolucao.create({
             idemprestimo,
             observacao,
-            // datadevolucao é preenchida automaticamente pelo modelo
+            dataDevolucao: new Date()
         });
 
-        // O hook afterCreate do modelo já atualiza o empréstimo e o livro,
-        // mas podemos retornar os dados atualizados
+        await Livro.update(
+            { disponivel: true },
+            { where: { id: emprestimo.Livro.id } }
+        );
+
         const emprestimoAtualizado = await Emprestimo.findByPk(idemprestimo, {
             include: [Livro]
         });
