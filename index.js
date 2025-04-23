@@ -7,7 +7,6 @@ import categoria from "./controller/CategoriaController.js";
 import livro from "./controller/LivroController.js";
 import usuario from "./controller/UsuarioController.js";
 import emprestimo from "./controller/EmprestimoController.js";
-import devolucao from "./controller/DevolverController.js";
 import funcionario from "./controller/CadastrarFuncionarioController copy.js";
 
 try {
@@ -62,12 +61,8 @@ app.delete('/usuario/:id', usuario.excluir);
 //rotas crud da tabela empréstimo
 app.get('/emprestimo', emprestimo.listar);
 app.get('/emprestimo/:id', emprestimo.selecionar);
-app.post('/emprestimo', emprestimo.emprestar);  
-
-//rotas crud da tabela
-app.get('/devolucao', devolucao.listar);        
-app.get('/devolucao/:id', devolucao.selecionar); 
-app.post('/devolucao', devolucao.devolver);    
+app.post('/emprestimo', emprestimo.emprestar); 
+app.post('/emprestimo/devolver', emprestimo.devolver);    
 
 //rotas crud da tabela Cadastro de Funcionario
 app.get('/funcionario', funcionario.listar);

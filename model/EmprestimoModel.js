@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import banco from "../banco.js";
 
-//mapeamento da model Editora
+//mapeamento da model Emprestimo
 export default banco.define(
     'emprestimo',
     {

@@ -30,10 +30,10 @@ async function alterar(req, res) {
     const nascimento = req.body.nascimento;
     const salario = req.body.salario;
     const contratacao = req.body.contratacao;
-    //const demissao = req.body.demissao;
-    //const ativo = req.body.ativo;
-    //const senha = req.body.senha;
-    //const token = req.body.token;
+    const demissao = req.body.demissao;
+    const ativo = req.body.ativo;
+    const senha = req.body.senha;
+    const token = req.body.token;
 
     const idfuncionario = req.params.id;
 
