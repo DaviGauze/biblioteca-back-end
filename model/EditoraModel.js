@@ -3,7 +3,7 @@ import banco from "../banco.js";
 
 //mapeamento da model Editora
 export default banco.define(
-    'emprestimo',
+    'editora',
     {
         // Model attributes are defined here
         ideditora: {
